@@ -1,0 +1,8 @@
+{
+    "node": true,
+    "globals": {
+        "describe": true,
+        "it":       true
+    },
+    "expr": true
+}
