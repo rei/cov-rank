@@ -15,7 +15,10 @@ gulp.task( 'test', function ( cb ) {
             gulp.src( [ 'test/*.js' ] )
                 .pipe( mocha() )
                 .pipe( istanbul.writeReports( {
-                    reporters: [ 'json' ]
+                    reporters: [
+                        'text-summary',
+                        'json-summary'
+                    ]
                 } ) )
                 .on( 'end', cb );
             } );
