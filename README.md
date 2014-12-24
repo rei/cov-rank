@@ -36,15 +36,15 @@ Inspired by the [ci-game](https://github.com/jenkinsci/ci-game-plugin) Jenkins p
 
 ## Options
 
-All of the following command-line options are optional. Default values are indicated by the [square brackets].
+All of the following command-line options are optional.
 
 ### `--version`
-#### [`false`]
 
 Show version and exit.
 
 ### `--repo` 
-#### [`'.'`]
+
+**Default: `'.'`**
 
 Path to the target repository. The target repository must:
 
@@ -52,7 +52,8 @@ Path to the target repository. The target repository must:
 - Include runnable tests (by the `--repo-test-command`) that generates a JSON test coverage summary. (See `--repo-cov-report`.)
 
 ### `--repo-test-command` 
-#### [`'npm tst'`]
+
+**Default: `'npm tst'`**
 
 Test command to run within the repo to generate the coverage report summary.
 
@@ -75,7 +76,8 @@ Coverage tools such as [istanbul](https://github.com/gotwarlost/istanbul) and [g
 
 
 ### `--report` 
-#### [`'./coverage/coverage-rank.json'`]
+
+**Default: `'./coverage/coverage-rank.json'`**
 
 Path to the coverage leaderboard JSON report file.
 
@@ -111,7 +113,8 @@ The report will take the following form:
 **Tip:** If you want to completely re-create the report instead of updating it, simply delete it, and it will be re-created from scratch.
 
 ### `--file-filter` (Not yet implemented)
-#### [`null`]
+
+**Default: `null`**
 
 Only include commits that touch files matching the `--file-filter`, e.g., `'*.js'`
 
