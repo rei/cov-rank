@@ -15,9 +15,10 @@ Inspired by the [ci-game](https://github.com/jenkinsci/ci-game-plugin) Jenkins p
 
 ### Point Values
 
-Point values are based on total unit test statement coverage percentage. 1% === 100 points. E.g., a commit that raises overall test statement coverage by 1% will yield the author with 100 points.
-
-Commits that break unit tests will not affect an author's score.
+- Point values are based on total unit test statement coverage percentage. 
+- 1% === 100 points, e.g., a commit that raises overall test statement coverage by 1% will yield the author with 100 points
+- Commits that break unit tests will not affect an author's score
+- All authors start at 0 points
 
 ## Getting Started
 
