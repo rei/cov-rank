@@ -16,7 +16,8 @@ var happyDeps = {
         return {
             info: _.noop
         };
-    }
+    },
+    './lib/generate-report': _.noop
 };
 
 var getIndex = function ( overrides ) {
@@ -29,7 +30,7 @@ describe( 'index', function () {
         expect( pkg.bin[ 'cov-rank' ] ).to.equal( './index.js' );
     } );
 
-    describe( '--version', function () {
+    xdescribe( '--version', function () {
         it( 'defaults to false', function () {
             var logInfoSpy  = sinon.spy();
             var idx         = getIndex( {
@@ -39,8 +40,7 @@ describe( 'index', function () {
                     };
                 }
             } );
-            expect( logInfoSpy.calledOnce ).to.be.true;
-            expect( logInfoSpy.calledWith( 'Done!' ) ).to.be.true;
+            expect( logInfoSpy.notCalled ).to.be.true;
         } );
         it( 'outputs the version', function () {
             var logInfoSpy  = sinon.spy();
@@ -76,8 +76,8 @@ describe( 'index', function () {
         it( 'uses the specified file' );
     } );
 
-    describe( '--report', function () {
-        it( 'defaults to "./coverage/coverage-rank.json"' );
-        it( 'uses the specified file' );
+    describe( '--pretty', function () {
+        it( 'defaults to `false`' );
+        it( 'prettifies the JSON output' );
     } );
 } );
