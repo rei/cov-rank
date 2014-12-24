@@ -55,7 +55,7 @@ Path to the target repository. The target repository must:
 
 **Default: `'npm tst'`**
 
-Test command to run within the repo to generate the coverage report summary.
+Test command to run within the repo. The test must generate a coverage summary report. See `--repo-cov-report`.
 
 ### `--repo-cov-report` 
 #### [`'./coverage/coverage-summary.json'`]
