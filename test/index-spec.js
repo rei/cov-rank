@@ -30,7 +30,7 @@ describe( 'index', function () {
         expect( pkg.bin[ 'cov-rank' ] ).to.equal( './index.js' );
     } );
 
-    xdescribe( '--version', function () {
+    describe( '--version', function () {
         it( 'defaults to false', function () {
             var logInfoSpy  = sinon.spy();
             var idx         = getIndex( {
@@ -40,7 +40,8 @@ describe( 'index', function () {
                     };
                 }
             } );
-            expect( logInfoSpy.notCalled ).to.be.true;
+            expect( logInfoSpy.calledOnce ).to.be.true;
+            expect( logInfoSpy.calledWith( 'Done!' ) ).to.be.true;
         } );
         it( 'outputs the version', function () {
             var logInfoSpy  = sinon.spy();
@@ -76,8 +77,8 @@ describe( 'index', function () {
         it( 'uses the specified file' );
     } );
 
-    describe( '--pretty', function () {
-        it( 'defaults to `false`' );
-        it( 'prettifies the JSON output' );
+    describe( '--report', function () {
+        it( 'defaults to "./coverage/coverage-rank.json"' );
+        it( 'writes to the specified report file' );
     } );
 } );

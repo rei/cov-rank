@@ -1,5 +1,6 @@
 'use strict';
 
+var fs          = require( 'fs' );
 var args        = require( 'minimist' )( process.argv.slice( 2 ) );
 var log         = require( './lib/logger' )();
 var genReport   = require( './lib/generate-report' );
@@ -17,9 +18,8 @@ var report = genReport( {
     covReport:  args[ 'repo-cov-report' ]   || './coverage/coverage-summary.json'
 } );
 
-// Output report to stdout
-var reportString = args.pretty ?
-    JSON.stringify( report, null, 2 ) :
-    JSON.stringify( report );
+// Write the report
+var reportString = JSON.stringify( report, null, 2 );
+fs.writeSync( reportString );
 
-console.log( reportString );
+log.info( 'Done!' );
