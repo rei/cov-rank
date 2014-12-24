@@ -1,4 +1,4 @@
-# cov-rank
+# cov-leaderboard
 
 > JavaScript test coverage leaderboard generator
 
@@ -11,7 +11,7 @@ This is a command-line tool for generating a JavaScript unit test coverage leade
     - if the commit decreases coverage, decrease the the author's points
 2. Generate a JSON file with leaderboard information, sorted by an author's rank, including test coverage change events by that author.
 
-## Target Repo Requirements
+## Input
 
 The target Git repository must contain runnable tests that are able to generate a code coverage report summary in JSON format with the following structure:
 
@@ -48,3 +48,30 @@ The target Git repository must contain runnable tests that are able to generate 
 ```
 
 Coverage tools such as [istanbul](https://github.com/gotwarlost/istanbul) and [gulp-istanbul](https://github.com/SBoudrias/gulp-istanbul) will generate a report summary in this form using the `json-summary` reporter.
+
+## Output
+
+A JSON file with the leaderbaord information in the following format:
+
+```json
+[
+    {
+        "author": "Homer Simpson",
+        "score": 453,
+        "changeLog": [
+            {
+                "sha": "13824901d09a13438c23d012ea51cc87683002c1",
+                "date": "2014-12-23 15:09:22 -0800",
+                "coverageChange": 0.5
+            },
+            {
+                "sha": "6443870b2799bb84c8aff6b0ed38802c36616dda",
+                "date": "2014-12-23 15:53:54 -0800",
+                "coverageChange": -0.1
+            },
+            ...
+        ]
+    },
+    ...
+]
+```

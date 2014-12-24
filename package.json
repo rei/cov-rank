@@ -1,7 +1,7 @@
 {
-  "name": "cov-lead",
+  "name": "cov-leaderboard",
   "version": "0.1.0",
-  "description": "Generate a test coverage leaderboard report",
+  "description": "Generate a test coverage leaderboard report from Git history",
   "main": "index.js",
   "dependencies": {
     "gulp": "^3.8.10",
@@ -17,7 +17,7 @@
     "sinon": "^1.12.2"
   },
   "scripts": {
-    "test": "gulp test --cover"
+    "test": "gulp test"
   },
   "author": "Rob McGuire-Dale <rmcguir@rei.com>",
   "license": "MIT"
