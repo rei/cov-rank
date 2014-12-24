@@ -104,7 +104,7 @@ The report will take the following form:
 
 **Tip:** If you want to completely re-create the report instead of updating it, simply delete it, and it will be re-created from scratch.
 
-### `--file-filter` [`null`] (Not yet implemented)
+### `--file-filter` \[`null`\] (Not yet implemented)
 
 Only include commits that touch files matching the `--file-filter`, e.g., `'*.js'`
 
