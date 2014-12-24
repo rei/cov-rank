@@ -1,6 +1,6 @@
 # cov-rank
 
-> JavaScript test coverage leaderboard report generator
+> JavaScript test coverage leaderboard report generator, inspired by the [ci-game](https://github.com/jenkinsci/ci-game-plugin) Jenkins plugin.
 
 `cov-rank` is a command-line tool for generating a JavaScript unit test coverage leaderboard report by walking through the Git history of a target repository, tracking unit test coverage by commit, and rewarding authors who increase coverage with points.
 
