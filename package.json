@@ -7,6 +7,7 @@
     "gulp": "^3.8.10",
     "gulp-istanbul": "^0.5.0",
     "gulp-mocha": "^2.0.0",
+    "lodash": "^2.4.1",
     "minimist": "^1.1.0",
     "nodegit": "^0.2.4",
     "winston": "^0.8.3"
@@ -20,7 +21,7 @@
     "test": "gulp test"
   },
   "bin": {
-    "cov-rank": "index.js"
+    "cov-rank": "./index.js"
   },
   "author": "Rob McGuire-Dale <rmcguir@rei.com>",
   "license": "MIT"
