@@ -19,6 +19,9 @@
   "scripts": {
     "test": "gulp test"
   },
+  "bin": {
+    "cov-rank": "index.js"
+  },
   "author": "Rob McGuire-Dale <rmcguir@rei.com>",
   "license": "MIT"
 }

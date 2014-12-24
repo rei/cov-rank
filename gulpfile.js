@@ -16,7 +16,7 @@ gulp.task( 'test', function ( cb ) {
                 .pipe( mocha() )
                 .pipe( istanbul.writeReports( {
                     reporters: [
-                        'text-summary',
+                        'text',
                         'json-summary'
                     ]
                 } ) )
