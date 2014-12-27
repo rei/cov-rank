@@ -127,17 +127,133 @@ describe( 'index', function () {
     } );
 
     describe( '--repo-test-command', function () {
-        it( 'defaults to `npm tst`' );
-        it( 'uses the specified test command' );
+
+        it( 'defaults to `npm tst`', function () {
+            var logInfoSpy      = sinon.spy();
+            var idx             = getIndex( {
+                './lib/logger': function () {
+                    return {
+                        info: logInfoSpy
+                    };
+                }
+            } );
+            expect( logInfoSpy.args[ 4 ] ).to.deep.equal( [
+                '    Test command:            %s',
+                'cyan:npm tst'
+            ] );
+        }  );
+
+        it( 'uses the specified test command', function () {
+            var logInfoSpy      = sinon.spy();
+            var idx             = getIndex( {
+                minimist: function () {
+                    return {
+                        'repo-test-command': 'fake-repo-test-cmd'
+                    };
+                },
+                './lib/logger': function () {
+                    return {
+                        info: logInfoSpy
+                    };
+                }
+            } );
+            expect( logInfoSpy.args[ 4 ] ).to.deep.equal( [
+                '    Test command:            %s',
+                'cyan:fake-repo-test-cmd'
+            ] );
+        } );
     } );
 
     describe( '--repo-cov-summary', function () {
-        it( 'defaults to "./coverage/coverage-summary.json"' );
-        it( 'uses the specified file' );
+
+        it( 'defaults to "./coverage/coverage-summary.json"', function () {
+            var pathJoinSpy     = sinon.spy( function () {
+                return 'fake-path-join-return';
+            } );
+            var logInfoSpy      = sinon.spy();
+            var idx             = getIndex( {
+                path: {
+                    join: pathJoinSpy
+                },
+                './lib/logger': function () {
+                    return {
+                        info: logInfoSpy
+                    };
+                }
+            } );
+            expect( pathJoinSpy.args[ 0 ] ).to.deep.equal( [
+                '.', 'coverage', 'coverage-summary.json'
+            ] );
+            expect( logInfoSpy.args[ 5 ] ).to.deep.equal( [
+                '    Coverage summary path:   %s',
+                'magenta:fake-path-join-return'
+            ] );
+        } );
+
+        it( 'uses the specified file', function () {
+            var logInfoSpy      = sinon.spy();
+            var idx             = getIndex( {
+                minimist: function () {
+                    return {
+                        'repo-cov-summary': 'fake-repo-cov-summary'
+                    };
+                },
+                './lib/logger': function () {
+                    return {
+                        info: logInfoSpy
+                    };
+                }
+            } );
+            expect( logInfoSpy.args[ 5 ] ).to.deep.equal( [
+                '    Coverage summary path:   %s',
+                'magenta:fake-repo-cov-summary'
+            ] );
+        } );
     } );
 
     describe( '--report', function () {
-        it( 'defaults to "./coverage/coverage-rank.json"' );
-        it( 'writes to the specified report file' );
+        it( 'defaults to "./coverage/coverage-rank.json"', function () {
+            var pathJoinSpy     = sinon.spy( function () {
+                return 'fake-path-join-return';
+            } );
+            var logInfoSpy      = sinon.spy();
+            var idx             = getIndex( {
+                path: {
+                    join: pathJoinSpy
+                },
+                './lib/logger': function () {
+                    return {
+                        info: logInfoSpy
+                    };
+                }
+            } );
+            expect( pathJoinSpy.args[ 1 ] ).to.deep.equal( [
+                '.', 'coverage', 'coverage-rank.json'
+            ] );
+            expect( logInfoSpy.args[ 6 ] ).to.deep.equal( [
+                '    Rank report path:        %s',
+                'magenta:fake-path-join-return'
+            ] );
+        } );
+
+        it( 'writes to the specified report file', function () {
+            var logInfoSpy      = sinon.spy();
+            var idx             = getIndex( {
+                minimist: function () {
+                    return {
+                        report: 'fake-report-path'
+                    };
+                },
+                './lib/logger': function () {
+                    return {
+                        info: logInfoSpy
+                    };
+                }
+            } );
+            expect( logInfoSpy.args[ 6 ] ).to.deep.equal( [
+                '    Rank report path:        %s',
+                'magenta:fake-report-path'
+            ] );
+        } );
     } );
 } );
