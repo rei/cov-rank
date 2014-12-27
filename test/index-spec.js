@@ -10,6 +10,10 @@ var happyDeps = {
     util: {
         puts: _.noop
     },
+    path: {
+        join: _.noop,
+        sep:  'fake-path-sep'
+    },
     fs: {
         writeFileSync: _.noop
     },
@@ -17,6 +21,11 @@ var happyDeps = {
         return {
             version: false
         };
+    },
+    chalk: {
+        bold:       function ( s ) { return 'bold:' + s },
+        cyan:       function ( s ) { return 'cyan:' + s },
+        magenta:    function ( s ) { return 'magenta:' + s },
     },
     './lib/logger': function () {
         return {
@@ -80,8 +89,41 @@ describe( 'index', function () {
     } );
 
     describe( '--repo', function () {
-        it( 'defaults to the current directory' );
-        it( 'uses the specified directory' );
+
+        it( 'defaults to the current directory', function () {
+            var logInfoSpy      = sinon.spy();
+            var idx             = getIndex( {
+                './lib/logger': function () {
+                    return {
+                        info: logInfoSpy
+                    };
+                }
+            } );
+            expect( logInfoSpy.args[ 3 ] ).to.deep.equal( [
+                '    Target repo:             %s',
+                'magenta:.' + happyDeps.path.sep
+            ] );
+        } );
+
+        it( 'uses the specified repo path', function () {
+            var logInfoSpy      = sinon.spy();
+            var idx             = getIndex( {
+                minimist: function () {
+                    return {
+                        repo: 'fake-repo-path'
+                    };
+                },
+                './lib/logger': function () {
+                    return {
+                        info: logInfoSpy
+                    };
+                }
+            } );
+            expect( logInfoSpy.args[ 3 ] ).to.deep.equal( [
+                '    Target repo:             %s',
+                'magenta:fake-repo-path'
+            ] );
+        } );
     } );
 
     describe( '--repo-test-command', function () {

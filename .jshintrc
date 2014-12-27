@@ -4,5 +4,6 @@
         "describe": true,
         "it":       true
     },
-    "expr": true
+    "expr": true,
+    "lastsemic": true
 }
