@@ -3,10 +3,16 @@
 var _       = require( 'lodash' );
 var expect  = require( 'chai' ).expect;
 var sinon   = require( 'sinon' );
-var pequire = require( 'proxyquire' );
+var pequire = require( 'proxyquire' ).noCallThru();
 var pkg     = require( '../package.json' );
 
 var happyDeps = {
+    util: {
+        puts: _.noop
+    },
+    fs: {
+        writeFileSync: _.noop
+    },
     minimist: function () {
         return {
             version: false
@@ -31,21 +37,31 @@ describe( 'index', function () {
     } );
 
     describe( '--version', function () {
+
         it( 'defaults to false', function () {
-            var logInfoSpy  = sinon.spy();
-            var idx         = getIndex( {
+            var utilPutsSpy     = sinon.spy();
+            var logInfoSpy      = sinon.spy();
+            var idx             = getIndex( {
+                util: {
+                    puts: utilPutsSpy
+                },
                 './lib/logger': function () {
                     return {
                         info: logInfoSpy
                     };
                 }
             } );
-            expect( logInfoSpy.calledOnce ).to.be.true;
+            expect( utilPutsSpy.notCalled ).to.be.true;
             expect( logInfoSpy.calledWith( 'Done!' ) ).to.be.true;
         } );
+
         it( 'outputs the version', function () {
-            var logInfoSpy  = sinon.spy();
-            var idx         = getIndex( {
+            var utilPutsSpy     = sinon.spy();
+            var logInfoSpy      = sinon.spy();
+            var idx             = getIndex( {
+                util: {
+                    puts: utilPutsSpy
+                },
                 minimist: function () {
                     return {
                         version: true
@@ -57,8 +73,8 @@ describe( 'index', function () {
                     };
                 }
             } );
-            expect( logInfoSpy.calledOnce ).to.be.true;
-            expect( logInfoSpy.calledWith( 'v' + pkg.version ) ).to.be.true;
+            expect( utilPutsSpy.calledOnce ).to.be.true;
+            expect( utilPutsSpy.calledWith( pkg.version ) ).to.be.true;
         } );
     } );
 
