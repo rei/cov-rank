@@ -75,6 +75,7 @@ describe( 'index', function () {
             } );
             expect( utilPutsSpy.calledOnce ).to.be.true;
             expect( utilPutsSpy.calledWith( pkg.version ) ).to.be.true;
+            expect( logInfoSpy.notCalled ).to.be.true;
         } );
     } );
 
@@ -88,7 +89,7 @@ describe( 'index', function () {
         it( 'uses the specified test command' );
     } );
 
-    describe( '--repo-cov-report', function () {
+    describe( '--repo-cov-summary', function () {
         it( 'defaults to "./coverage/coverage-summary.json"' );
         it( 'uses the specified file' );
     } );

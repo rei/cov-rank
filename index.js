@@ -3,6 +3,7 @@
 'use strict';
 
 var util        = require( 'util' );
+var path        = require( 'path' );
 var fs          = require( 'fs' );
 var args        = require( 'minimist' )( process.argv.slice( 2 ) );
 var chalk       = require( 'chalk' );
@@ -16,22 +17,29 @@ if( args.version ) {
     return;
 }
 
-log.info( 'Starting %s v%s', chalk.bold( pkg.name ), chalk.bold( pkg.version ) );
+log.info( 'Starting %s %s', chalk.bold( pkg.name ), chalk.bold( pkg.version ) );
 
 // Process arguments
-var repoPath    = args.repo                     || '.';
-var testCmd     = args[ 'repo-test-command' ]   || 'npm tst';
-var reportPath  = args[ 'repo-cov-report' ]     || './coverage/coverage-summary.json';
+var repoPath        = args.repo                     || '.' + path.sep;
+var testCmd         = args[ 'repo-test-command' ]   || 'npm tst';
+var covSummaryPath  = args[ 'repo-cov-summary' ]    || path.join( '.', 'coverage', 'coverage-summary.json' );
+var reportPath      = args.report                   || path.join( '.', 'coverage', 'coverage-rank.json' );
 
+log.info( '----' );
 log.info( 'Configuration:' );
-log.info( '    Repository:   %s', chalk.magenta( repoPath ) );
-log.info( '    Test command: %s', chalk.cyan( testCmd ) );
-log.info( '    Report path:  %s', chalk.magenta( reportPath ) );
+log.info( '    Target repo:             %s', chalk.magenta( repoPath ) );
+log.info( '    Test command:            %s', chalk.cyan( testCmd ) );
+log.info( '    Coverage summary path:   %s', chalk.magenta( covSummaryPath ) );
+log.info( '    Rank report path:        %s', chalk.magenta( reportPath ) );
+log.info( '----' );
 
 // Generate a report
+log.info( 'Generating coverage rank report for %s', chalk.magenta( repoPath ) );
+
 var report = genReport( {
     repoPath:   repoPath,
-    testCmd:    testCmd
+    testCmd:    testCmd,
+    covSummary: covSummaryPath
 } );
 
 // Write the report to disk
